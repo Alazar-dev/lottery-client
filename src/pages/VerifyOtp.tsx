@@ -16,6 +16,7 @@ export default function VerifyOtp() {
         });
 
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         setAuthToken(res.data.token);
         setUser(res.data.user);
 
