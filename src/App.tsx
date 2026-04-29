@@ -4,6 +4,8 @@ import Login from "./pages/Login.tsx";
 import VerifyOtp from "./pages/VerifyOtp.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import AdminDashboard from "./pages/AdminDashboard.tsx";
+import BuyTicket from "./pages/BuyTicket";
+import MyTickets from "./pages/MyTickets.tsx";
 
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import AdminRoute from "./components/AdminRoute.tsx";
@@ -34,6 +36,23 @@ function App() {
                       <AdminRoute>
                           <AdminDashboard />
                       </AdminRoute>
+                  }
+              />
+              <Route
+                  path="/buy-ticket"
+                  element={
+                      <ProtectedRoute>
+                          <BuyTicket />
+                      </ProtectedRoute>
+                  }
+              />
+
+              <Route
+                  path="/my-tickets"
+                  element={
+                      <ProtectedRoute>
+                          <MyTickets />
+                      </ProtectedRoute>
                   }
               />
           </Routes>
