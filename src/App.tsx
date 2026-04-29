@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard.tsx";
 import AdminDashboard from "./pages/AdminDashboard.tsx";
 import BuyTicket from "./pages/BuyTicket";
 import MyTickets from "./pages/MyTickets.tsx";
+import PaymentSuccess from "./pages/PaymentSuccess.tsx";
 
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import AdminRoute from "./components/AdminRoute.tsx";
@@ -54,6 +55,10 @@ function App() {
                           <MyTickets />
                       </ProtectedRoute>
                   }
+              />
+              <Route
+                  path="/payment-success"
+                  element={<PaymentSuccess />}
               />
           </Routes>
       </BrowserRouter>
