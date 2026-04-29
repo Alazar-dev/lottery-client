@@ -1,8 +1,10 @@
-import { useState } from 'react'
 import './App.css';
 
 import Login from "./pages/Login.tsx";
 import VerifyOtp from "./pages/VerifyOtp.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
+
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
@@ -10,10 +12,21 @@ function App() {
 
   return (
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/verify" element={<VerifyOtp />} />
-        </Routes>
+          <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Login />} />
+              <Route path="/verify" element={<VerifyOtp />} />
+
+              {/* Protected Routes */}
+              <Route
+                  path="/dashboard"
+                  element={
+                      <ProtectedRoute>
+                          <Dashboard />
+                      </ProtectedRoute>
+                  }
+              />
+          </Routes>
       </BrowserRouter>
     // <>
     //   <section id="center">
