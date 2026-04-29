@@ -65,7 +65,7 @@ export default function Login() {
 
             <div>
               <h1 className="font-bold text-xl tracking-wide">
-                LotteryX
+                Lottery
               </h1>
 
               <p className="text-xs text-gray-400">

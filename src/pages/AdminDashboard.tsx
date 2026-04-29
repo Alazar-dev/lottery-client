@@ -102,7 +102,7 @@ export default function AdminDashboard() {
 
               <div>
                 <h1 className="text-2xl font-black tracking-wide">
-                  LotteryX Admin
+                  Lottery Admin
                 </h1>
 
                 <p className="text-sm text-gray-400 mt-1">
