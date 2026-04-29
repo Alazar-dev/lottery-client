@@ -7,7 +7,7 @@ export default function Login() {
     const navigate = useNavigate();
 
     const requestOtp = async () => {
-        await api.post("/auth/request-otp", { email });
+        await api.post("/auth/requestOtp", { email });
         navigate("/verify", { state: { email } });
     };
 

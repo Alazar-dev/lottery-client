@@ -10,7 +10,7 @@ export default function VerifyOtp() {
     const { setUser } = useContext(AuthContext);
 
     const verifyOtp = async () => {
-        const res = await api.post("/auth/verify-otp", {
+        const res = await api.post("/auth/verifyOtp", {
             email: state.email,
             otp
         });
