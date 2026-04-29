@@ -7,7 +7,7 @@ export default function BuyTicket() {
 
     const buyTicket = async () => {
         try {
-            const res = await api.post("/tickets");
+            const res = await api.post("/ticket");
 
             setMessage(`Ticket Number: ${res.data.ticket.number}`);
         } catch (err: any) {
