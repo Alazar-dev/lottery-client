@@ -25,6 +25,9 @@ interface UserType {
 
 export default function Dashboard() {
   const [tickets, setTickets] = useState<TicketType[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalTickets, setTotalTickets] = useState(0);
 
 
   const [user, setUser] = useState<UserType | null>(
@@ -75,17 +78,18 @@ export default function Dashboard() {
       setAuthToken(token);
     }
 
-    fetchTickets();
+    fetchTickets(1);
     fetchUser();
   }, []);
 
-  const fetchTickets = async () => {
+  const fetchTickets = async (page = 1) => {
     try {
-      const res = await api.get(
-        "/ticket/my"
-      );
+      const res = await api.get(`/ticket/my?page=${page}&limit=6`);
 
-      setTickets(res.data);
+      setTickets(res.data.tickets);
+      setCurrentPage(res.data.pagination.currentPage);
+      setTotalPages(res.data.pagination.totalPages);
+      setTotalTickets(res.data.pagination.totalTickets);
     } catch (err) {
       console.log(err);
     }
@@ -235,7 +239,7 @@ export default function Dashboard() {
                     </p>
 
                     <h2 className="text-3xl font-black mt-2">
-                      {tickets.length}
+                      {totalTickets}
                     </h2>
                   </div>
 
@@ -293,7 +297,7 @@ export default function Dashboard() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {tickets.map((ticket) => (
+              {tickets?.map((ticket) => (
                 <div
                   key={ticket._id}
                   className="group rounded-3xl border border-white/10 bg-black/30 hover:bg-black/40 transition-all duration-300 p-6 relative overflow-hidden"
@@ -344,6 +348,43 @@ export default function Dashboard() {
             </div>
           )}
         </div>
+        {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-3 mt-10">
+              <button
+                  onClick={() => fetchTickets(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-white/10 transition"
+              >
+                Previous
+              </button>
+
+              {Array.from({ length: totalPages }, (_, index) => {
+                const page = index + 1;
+
+                return (
+                    <button
+                        key={page}
+                        onClick={() => fetchTickets(page)}
+                        className={`w-12 h-12 rounded-2xl border transition ${
+                            currentPage === page
+                                ? "bg-emerald-500 text-black border-emerald-500"
+                                : "bg-white/5 text-white border-white/10 hover:bg-white/10"
+                        }`}
+                    >
+                      {page}
+                    </button>
+                );
+              })}
+
+              <button
+                  onClick={() => fetchTickets(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-white/10 transition"
+              >
+                Next
+              </button>
+            </div>
+        )}
       </main>
     </div>
   );
