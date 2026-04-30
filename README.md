@@ -1,73 +1,139 @@
-# React + TypeScript + Vite
+# Weekly Draw Lottery — Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository is the **web client** for a Weekly Draw Lottery platform. It is a single-page application where customers sign in with email OTP, purchase tickets through Chapa checkout, view tickets and wallet balance, and where administrators review platform metrics (users, tickets, revenue, payouts, winners, draws).
 
-Currently, two official plugins are available:
+The app is built with **React 19**, **TypeScript**, **Vite**, **Tailwind CSS**, **React Router**, **Axios**, **Recharts**, and **Lucide React**. It talks to a separate **REST API** (not included here); local development assumes that API is available at the URL you configure (see [.env](#env-file-setup)).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Customer
 
-## Expanding the ESLint configuration
+- Email OTP login
+- Protected customer dashboard
+- Buy lottery tickets (Chapa)
+- Purchased tickets with pagination
+- Wallet balance
+- Payment success handling
+- Logout
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Admin
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Same OTP login flow; route protection for admins
+- Platform analytics dashboard
+- Revenue / payout charts and totals for users, tickets, revenue, draws, winners, payouts
+- Admin logout
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Tech stack
+
+| Area        | Choices                                      |
+|------------|-----------------------------------------------|
+| UI         | React, TypeScript, Tailwind CSS, Lucide React |
+| Build / dev | Vite                                       |
+| Routing    | React Router DOM                             |
+| HTTP       | Axios (Bearer token from `localStorage`)      |
+| Charts     | Recharts                                     |
+
+---
+
+## Project layout
+
+```
+src/
+  components/     ProtectedRoute, AdminRoute
+  context/          AuthContext
+  pages/            Login, VerifyOtp, Dashboard, AdminDashboard
+  routes/           App routes
+  services/         api (Axios client)
+  lib/              Shared helpers (e.g. logout)
+  App.tsx
+  main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Run on your machine
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Prerequisites
+
+- **Node.js** 18 or newer (LTS recommended)
+- **npm** (bundled with Node; or use your preferred compatible package manager)
+- A running **lottery backend API** that matches what this client expects (default base URL: `http://localhost:8080/api`)
+
+### Steps
+
+1. **Clone or copy** this repo and open a terminal at the project root (`lottery-client`).
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment** (optional but recommended)
+
+   Copy the example env file and adjust the API URL if your backend is not on the default host/port:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Edit `.env` and set `VITE_API_BASE_URL` as described in [.env file setup](#env-file-setup).
+
+4. **Start the dev server**
+
+   ```bash
+   npm run dev
+   ```
+
+   Vite prints a local URL (typically `http://localhost:5173`). Open it in your browser. Ensure the backend is running and reachable at the configured base URL.
+
+5. **Other scripts**
+
+   | Command           | Purpose                          |
+   |-------------------|----------------------------------|
+   | `npm run dev`     | Development server with HMR      |
+   | `npm run build`   | Typecheck + production build → `dist/` |
+   | `npm run preview` | Serve the production build locally |
+   | `npm run lint`    | ESLint                           |
+
+Without a `.env` file, the client uses **`http://localhost:8080/api`** as the API base URL (see `src/services/api.ts`).
+
+---
+
+## `.env` file setup
+
+This project uses **[Vite environment variables](https://vite.dev/guide/env-and-mode.html)**. Only names starting with **`VITE_`** are exposed to browser code.
+
+### Creating `.env`
+
+1. Copy `.env.example` to `.env` at the repo root:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Set **`VITE_API_BASE_URL`** to your backend’s public base URL — the path your Axios client should use for all `/...` routes. If your API is mounted under `/api`, include that segment (for example `http://localhost:8080/api`). No trailing slash is required unless your server dictates it.
+
+   Example:
+
+   ```env
+   VITE_API_BASE_URL=http://localhost:8080/api
+   ```
+
+### Behaviour and safety
+
+- **Defaults:** If `VITE_API_BASE_URL` is unset, the app falls back to `http://localhost:8080/api`.
+- **Restart dev server:** After changing `.env`, restart `npm run dev` so Vite picks up changes.
+- **Production builds:** `VITE_*` values are embedded at **`npm run build`** time — use the correct URL for each deployment target.
+- **Secrets:** Anything in `.env` with the `VITE_` prefix is included in client bundles — **do not** put private keys or server-only secrets there. This file is listed in `.gitignore`; keep secrets out of the repo.
+- **Reference:** `.env.example` lists the variables this client supports; committed as documentation (no secrets).
+
+---
+
+## API client
+
+Authenticated requests attach `Authorization: Bearer <token>` using the token stored in `localStorage` (see `src/services/api.ts`).
