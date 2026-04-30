@@ -84,14 +84,12 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-emerald-500/10 blur-3xl rounded-full" />
 
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-yellow-500/10 blur-3xl rounded-full" />
       </div>
 
-      {/* Navbar */}
       <header className="relative z-10 border-b border-white/10 backdrop-blur-xl bg-black/30">
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           <div>
@@ -130,9 +128,7 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="relative z-10 max-w-7xl mx-auto px-6 py-10 space-y-10">
-        {/* Hero Section */}
         <div className="rounded-[36px] border border-white/10 bg-white/5 backdrop-blur-2xl p-10 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-500/10 blur-3xl rounded-full" />
 
@@ -156,9 +152,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* KPI Cards */}
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-          {/* Users */}
           <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-7 hover:bg-white/[0.07] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
@@ -179,7 +173,6 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Tickets */}
           <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-7 hover:bg-white/[0.07] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center">
@@ -200,7 +193,6 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Revenue */}
           <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-7 hover:bg-white/[0.07] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
@@ -221,7 +213,6 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Draws */}
           <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-7 hover:bg-white/[0.07] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
@@ -242,7 +233,6 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Winners */}
           <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-7 hover:bg-white/[0.07] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="w-14 h-14 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
@@ -263,7 +253,6 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Payouts */}
           <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-7 hover:bg-white/[0.07] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
@@ -285,9 +274,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Analytics Section */}
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Chart */}
           <div className="lg:col-span-2 rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8">
             <div className="mb-8">
               <h2 className="text-3xl font-black mb-2">
@@ -316,7 +303,6 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          {/* Side Stats */}
           <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8 flex flex-col justify-between">
             <div>
               <h2 className="text-3xl font-black mb-2">

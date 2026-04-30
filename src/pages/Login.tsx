@@ -48,14 +48,12 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
-      {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-emerald-500/20 blur-3xl rounded-full" />
 
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-yellow-500/20 blur-3xl rounded-full" />
       </div>
 
-      {/* Navbar */}
       <header className="relative z-10 border-b border-white/10 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -90,9 +88,7 @@ export default function Login() {
         </div>
       </header>
 
-      {/* Hero Section */}
       <section className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-20 items-center">
-        {/* Left Side */}
         <div>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm mb-8">
             <Sparkles size={16} />
@@ -112,7 +108,6 @@ export default function Login() {
             transparent draw systems.
           </p>
 
-          {/* Features */}
           <div className="grid sm:grid-cols-3 gap-5 mt-12">
             <div className="p-5 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
               <ShieldCheck className="text-emerald-400 mb-4" />
@@ -152,7 +147,6 @@ export default function Login() {
           </div>
         </div>
 
-        {/* Right Side - Auth Card */}
         <div className="relative">
           <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
 
@@ -207,7 +201,6 @@ export default function Login() {
               </button>
             </div>
 
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-white/10">
               <div>
                 <h3 className="text-2xl font-bold text-emerald-400">

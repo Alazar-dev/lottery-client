@@ -128,14 +128,12 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-emerald-500/10 blur-3xl rounded-full" />
 
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-yellow-500/10 blur-3xl rounded-full" />
       </div>
 
-      {/* Navbar */}
       <header className="relative z-10 border-b border-white/10 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           <div>
@@ -166,11 +164,8 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="relative z-10 max-w-7xl mx-auto px-6 py-10">
-        {/* Hero Section */}
         <div className="grid lg:grid-cols-3 gap-6 mb-10">
-          {/* Buy Ticket Card */}
           <div className="lg:col-span-2 rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-500/10 blur-3xl rounded-full" />
 
@@ -226,7 +221,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Stats Card */}
           <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8">
             <h3 className="text-2xl font-bold mb-8">
               Your Activity
@@ -268,7 +262,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* My Tickets */}
         <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8">
           <div className="flex items-center justify-between mb-8">
             <div>
