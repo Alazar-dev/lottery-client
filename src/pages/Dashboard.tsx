@@ -8,7 +8,7 @@ import {
   Loader2,
 } from "lucide-react";
 
-import { api } from "../services/api";
+import { api, setAuthToken } from "../services/api";
 import {useSearchParams} from "react-router-dom";
 
 interface TicketType {
@@ -40,10 +40,6 @@ export default function Dashboard() {
         "Verifying payment..."
     );
 
-    useEffect(() => {
-        verifyPayment();
-    }, []);
-
     const verifyPayment = async () => {
         try {
             const tx_ref = searchParams.get("tx_ref");
@@ -64,11 +60,24 @@ export default function Dashboard() {
             setPaymentMessage("Payment verification failed");
         }
     };
+  useEffect(() => {
+    const tx_ref = searchParams.get("tx_ref");
+
+    if (tx_ref) {
+      verifyPayment();
+    }
+  }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setAuthToken(token);
+    }
+
     fetchTickets();
     fetchUser();
-  }, [paymentMessage]);
+  }, []);
 
   const fetchTickets = async () => {
     try {
