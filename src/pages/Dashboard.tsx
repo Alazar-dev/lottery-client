@@ -8,6 +8,8 @@ import {
   Loader2,
 } from "lucide-react";
 
+import {logout} from "../lib/logout.ts";
+
 import { api, setAuthToken } from "../services/api";
 import {useSearchParams} from "react-router-dom";
 
@@ -163,6 +165,14 @@ export default function Dashboard() {
                   ETB {user?.walletBalance || 0}
                 </h3>
               </div>
+            </div>
+            <div className="px-5 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition">
+              <button
+                  onClick={logout}
+                  className="px-5 py-2 rounded-xl  text-red-400  transition"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
