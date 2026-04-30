@@ -23,6 +23,7 @@ import {
   TrendingUp,
   Loader2,
 } from "lucide-react";
+import {logout} from "../lib/logout.ts";
 
 interface StatsType {
   totalUsers: number;
@@ -123,6 +124,14 @@ export default function AdminDashboard() {
                   Operational
                 </h3>
               </div>
+            </div>
+            <div className="px-5 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition">
+              <button
+                  onClick={logout}
+                  className="px-5 py-2 rounded-xl  text-red-400  transition"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
@@ -288,16 +297,73 @@ export default function AdminDashboard() {
 
             <div className="w-full h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                <BarChart
+                    data={data}
+                    margin={{
+                      top: 20,
+                      right: 20,
+                      left: 0,
+                      bottom: 10,
+                    }}
+                >
+                  <defs>
+                    <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#34d399" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#059669" stopOpacity={0.75} />
+                    </linearGradient>
+                  </defs>
 
-                  <XAxis dataKey="name" />
+                  <CartesianGrid
+                      strokeDasharray="4 4"
+                      stroke="rgba(255,255,255,0.08)"
+                      vertical={false}
+                  />
 
-                  <YAxis />
+                  <XAxis
+                      dataKey="name"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{
+                        fill: "#9ca3af",
+                        fontSize: 13,
+                        fontWeight: 500,
+                      }}
+                  />
 
-                  <Tooltip />
+                  <YAxis
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{
+                        fill: "#9ca3af",
+                        fontSize: 13,
+                      }}
+                      tickFormatter={(value) => `ETB ${value}`}
+                  />
 
-                  <Bar dataKey="value" radius={[12, 12, 0, 0]} />
+                  <Tooltip
+                      cursor={{
+                        fill: "rgba(255,255,255,0.04)",
+                      }}
+                      contentStyle={{
+                        background: "rgba(10,10,10,0.95)",
+                        border: "1px solid rgba(255,255,255,0.12)",
+                        borderRadius: "16px",
+                        color: "#fff",
+                        boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+                      }}
+                      labelStyle={{
+                        color: "#a7f3d0",
+                        fontWeight: 700,
+                      }}
+                      formatter={(value) => [`ETB ${value}`, "Amount"]}
+                  />
+
+                  <Bar
+                      dataKey="value"
+                      fill="url(#barGradient)"
+                      radius={[14, 14, 6, 6]}
+                      barSize={70}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
