@@ -1,10 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
+import { toast } from "react-toastify";
 
-export const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+export const useLogout = () => {
+    const navigate = useNavigate();
 
-    delete api.defaults.headers.common["Authorization"];
+    return () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
 
-    window.location.href = "/";
+        delete api.defaults.headers.common["Authorization"];
+
+        toast.info("Logged out successfully");
+
+        setTimeout(() => {
+            navigate("/");
+        }, 500);
+    };
 };

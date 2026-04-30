@@ -23,7 +23,7 @@ import {
   TrendingUp,
   Loader2,
 } from "lucide-react";
-import {logout} from "../lib/logout.ts";
+import { useLogout} from "../lib/logout.ts";
 
 interface StatsType {
   totalUsers: number;
@@ -35,6 +35,7 @@ interface StatsType {
 }
 
 export default function AdminDashboard() {
+  const logout = useLogout();
   const [stats, setStats] =
     useState<StatsType | null>(null);
 

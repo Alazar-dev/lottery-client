@@ -8,11 +8,12 @@ import {
   Loader2,
 } from "lucide-react";
 
-import {logout} from "../lib/logout.ts";
+import {useLogout} from "../lib/logout.ts";
 
 import { api, setAuthToken } from "../services/api";
 import {useSearchParams} from "react-router-dom";
-
+import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 interface TicketType {
   _id: string;
   number: string;
@@ -26,6 +27,8 @@ interface UserType {
 }
 
 export default function Dashboard() {
+  const logout = useLogout();
+  const navigate = useNavigate();
   const [tickets, setTickets] = useState<TicketType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -45,26 +48,38 @@ export default function Dashboard() {
         "Verifying payment..."
     );
 
-    const verifyPayment = async () => {
-        try {
-            const tx_ref = searchParams.get("tx_ref");
+  const verifyPayment = async () => {
+    try {
+      const tx_ref = searchParams.get("tx_ref");
 
-            if (!tx_ref) {
-                setPaymentMessage("Missing transaction reference");
-                return;
-            }
+      if (!tx_ref) return;
 
-            const res = await api.get(
-                `/payment/verify?tx_ref=${tx_ref}`
-            );
+      const res = await api.get(`/payment/verify?tx_ref=${tx_ref}`);
 
-            setPaymentMessage(res.data.message);
-        } catch (err: any) {
-            console.log(err);
+      setPaymentMessage(res.data.message);
 
-            setPaymentMessage("Payment verification failed");
-        }
-    };
+      toast.success(
+          res.data.message === "Already processed"
+              ? "Payment already processed"
+              : "Payment successful. Ticket generated!"
+      );
+
+      await fetchTickets();
+      await fetchUser();
+
+      navigate("/dashboard", { replace: true });
+    } catch (err: any) {
+      console.log(err);
+
+      setPaymentMessage("Payment verification failed");
+
+      toast.error(
+          err?.response?.data?.message || "Payment verification failed"
+      );
+
+      navigate("/dashboard", { replace: true });
+    }
+  };
   useEffect(() => {
     const tx_ref = searchParams.get("tx_ref");
 
@@ -120,12 +135,13 @@ export default function Dashboard() {
         "/payment/initiate"
       );
 
+      toast.success("Redirecting to payment...");
+
       window.location.href =
         res.data.checkout_url;
     } catch (err: any) {
-      setMessage(
-        err?.response?.data?.message ||
-          "Failed to initiate payment"
+      toast.error(
+          err?.response?.data?.message || "Payment failed"
       );
     } finally {
       setLoading(false);

@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import { ShieldCheck, ArrowRight, Loader2, Mail } from "lucide-react";
+import {toast} from "react-toastify";
 
 import { api, setAuthToken } from "../services/api";
 import { AuthContext } from "../context/AuthContext";
@@ -34,14 +35,16 @@ export default function VerifyOtp() {
             setAuthToken(res.data.token);
             setUser(res.data.user);
 
+            toast.success("Login successful");
+
             if (res.data.user.role === "ADMIN") {
                 navigate("/admin");
             } else {
                 navigate("/dashboard");
             }
         } catch (err: any) {
-            setError(
-                err?.response?.data?.message || "Invalid OTP. Please try again."
+            toast.error(
+                err?.response?.data?.message || "Invalid OTP"
             );
         } finally {
             setLoading(false);

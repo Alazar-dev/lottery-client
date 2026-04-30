@@ -8,6 +8,7 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
+import {toast} from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -25,13 +26,14 @@ export default function Login() {
         email,
       });
 
+      toast.success("OTP sent to your email");
+
       navigate("/verify", {
         state: { email },
       });
     } catch (err: any) {
-      setError(
-        err?.response?.data?.message ||
-          "Failed to send OTP"
+      toast.error(
+          err?.response?.data?.message || "Failed to send OTP"
       );
     } finally {
       setLoading(false);
