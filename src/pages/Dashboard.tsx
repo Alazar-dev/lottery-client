@@ -44,10 +44,6 @@ export default function Dashboard() {
   const [message, setMessage] = useState("");
     const [searchParams] = useSearchParams();
 
-    const [paymentMessage, setPaymentMessage] = useState(
-        "Verifying payment..."
-    );
-
   const verifyPayment = async () => {
     try {
       const tx_ref = searchParams.get("tx_ref");
@@ -55,8 +51,6 @@ export default function Dashboard() {
       if (!tx_ref) return;
 
       const res = await api.get(`/payment/verify?tx_ref=${tx_ref}`);
-
-      setPaymentMessage(res.data.message);
 
       toast.success(
           res.data.message === "Already processed"
@@ -70,8 +64,6 @@ export default function Dashboard() {
       navigate("/dashboard", { replace: true });
     } catch (err: any) {
       console.log(err);
-
-      setPaymentMessage("Payment verification failed");
 
       toast.error(
           err?.response?.data?.message || "Payment verification failed"
@@ -127,6 +119,7 @@ export default function Dashboard() {
   };
 
   const buyTicket = async () => {
+    // @ts-ignore
     try {
       setLoading(true);
       setMessage("");
